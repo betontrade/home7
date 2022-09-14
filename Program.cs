@@ -13,14 +13,7 @@ void Zamena (int [,] mass)
 
 //Задача 47. Задайте двумерный массив размером m×n, заполненный случайными вещественными числами.
 
-// m = 3, n = 4.
-
-// 0,5 7 -2 -0,2
-
-// 1 -3,3 8 -9,9
-
-// 8 7,8 -7,1 9
-
+ /* Решение внутри 
 
 double [,] CreateArrayMy (int m, int n)
 {
@@ -35,7 +28,6 @@ double [,] CreateArrayMy (int m, int n)
 
     return array;
 }
-
 
 void ShowArrayMy (double [,] array)
 {
@@ -65,35 +57,172 @@ int columns = Convert.ToInt32(Console.ReadLine());
 
 double [,] arrayEnd = CreateArrayMy( rows, columns);
 
-
 ShowArrayMy(arrayEnd);
+
+*/
 
 
 // Задача 50. Напишите программу, которая на вход принимает позиции элемента 
 // в двумерном массиве, и возвращает значение этого элемента или же указание, что такого элемента нет.
 
-//Например, задан массив:
+ /* Решение внутри
 
-// 1 4 7 2
+int [,] CreateArrayMy (int m, int n)
+{
+    int [,] array = new int [m, n];
+    for (int i = 0; i < array.GetLength(0) ; i++)
+    {
+        for (int j = 0; j < array.GetLength(1) ; j ++)
+        {
+            array[i, j] =new Random().Next(-9, 10) ;
+        }
+    }
 
-// 5 9 2 3
-
-// 8 4 2 4
-
-// строка 1   столбец 7 ->  числа с таким индексом в массиве нет. ("Индексы считаем от ноля")
+    return array;
+}
 
 
+void ShowArrayMy (int [,] array)
+{
+    for (int i = 0; i < array.GetLength(0) ; i++)
+    {
+        for (int j = 0; j < array.GetLength(1) ; j ++)
+        {
+            if (array[i, j] >= 0)
+            {
+                  Console.Write( " " +  array[i, j] + " " );
+            }
+            else
+            {
+                Console.Write(array[i, j] + " " );
+            }
+        }
+        Console.WriteLine();
+    }
 
+}
+
+void Seash (int [,] array, int seashRow, int seashColumn)
+{
+    if (seashRow <= array.GetLength(0) |  seashColumn <= array.GetLength(1))
+    {
+        Console.WriteLine("Число с индексами [" + seashRow +", "+  seashColumn+ "] равняется " + array [(seashRow-1), (seashColumn-1)] );
+    }
+    else
+    {
+         Console.WriteLine("Числа с индексами [" + seashRow +", "+  seashColumn+ "] в массиве нет");
+    }
+}
+
+Console.Write("Пожалуйста введите количество строк: ");
+int rows = Convert.ToInt32( Console.ReadLine());
+
+Console.Write("Пожалуйста введите количество столбцов: ");
+int columns = Convert.ToInt32(Console.ReadLine());
+int [,] arrayEnd = CreateArrayMy( rows, columns);
+
+ShowArrayMy(arrayEnd);
+
+Console.Write("Пожалуйста введите строку где находится число (отсчет начинается с 1): ");
+int rowSeash = Convert.ToInt32(Console.ReadLine());
+
+
+Console.Write("Пожалуйста введите столбец где находится число (отсчет начинается с 1): ");
+int columnSeash = Convert.ToInt32(Console.ReadLine());
+
+Seash(arrayEnd, rowSeash, columnSeash);
+
+*/
 
 // Задача 52. Задайте двумерный массив из целых чисел. Найдите среднее арифметическое элементов в каждом столбце.
 
-// Например, задан массив:
-// 1 4 7 2
-// 5 9 2 3
-// 8 4 2 4
+/* Решение внутри
 
-// Среднее арифметическое каждого столбца: 4,6; 5,6; 3,6; 3.
-// Одномерный массив вещественных чисел double
+int [,] CreateArrayMy (int m, int n)
+{
+    int [,] array = new int [m, n];
+    for (int i = 0; i < array.GetLength(0) ; i++)
+    {
+        for (int j = 0; j < array.GetLength(1) ; j ++)
+        {
+            array[i, j] =new Random().Next(1, 10) ;
+        }
+    }
+    return array;
+}
 
-// Console.Write( Math.Round(2.34443, 2));
-                           //      /\ Знаки после запятой  
+double [] AverageColumns (int [,] array)
+{
+    double [] averageArray = new double [array.GetLength(1)];
+
+    double count = 0;
+    double memory = 0;
+
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+        for (int  i =0  ; i < array.GetLength(0); i++)
+        {
+            count =   count +  array[i, j];
+            memory = i;
+        }
+        double roundValue = count / (memory+1);
+        averageArray[j] = Math.Round (roundValue, 2);
+        count =0;
+        memory = 0;
+    }
+    return averageArray;
+}
+
+void ShowArrayMy (int [,] array)
+{
+    for (int i = 0; i < array.GetLength(0) ; i++)
+    {
+        for (int j = 0; j < array.GetLength(1) ; j ++)
+        {
+            if (array[i, j] >= 0)
+            {
+                  Console.Write( " " +  array[i, j] + " " );
+            }
+            else
+            {
+                Console.Write(array[i, j] + " " );
+            }
+        }
+        Console.WriteLine();
+    }
+
+}
+
+void ShowArrayMyDouble (double [] array)
+{
+    for (int i = 0; i < array.Length ; i++)
+    {
+       
+        Console.Write( "  " + array[i] );
+       
+    }
+    Console.Write(". ");
+
+}
+
+Console.Write("Пожалуйста введите количество строк: ");
+int rows = Convert.ToInt32( Console.ReadLine());
+
+Console.Write("Пожалуйста введите количество столбцов: ");
+int columns = Convert.ToInt32(Console.ReadLine());
+
+int [,] arrayEnd = CreateArrayMy( rows, columns);
+
+Console.WriteLine("Программа сгенерировала массив: ");
+
+ShowArrayMy(arrayEnd);
+
+double [] arrayMean = AverageColumns(arrayEnd);
+
+Console.Write("Среднее арифметическое каждого столбца: ");
+
+ShowArrayMyDouble(arrayMean);
+
+Console.WriteLine();
+
+*/
